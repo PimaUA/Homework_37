@@ -1,16 +1,16 @@
 package com.spring.web.servlet.homework.controller;
 
 import com.spring.web.servlet.homework.entity.Order;
-import com.spring.web.servlet.homework.exception_handling.OrderIncorrectData;
+import com.spring.web.servlet.homework.entity.Product;
+import com.spring.web.servlet.homework.exception_handling.OrderNotFound;
 import com.spring.web.servlet.homework.service.OrderService;
+import com.spring.web.servlet.homework.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -18,37 +18,87 @@ import java.util.List;
 public class OrderController {
     @Autowired
     OrderService orderService;
+    @Autowired
+    ProductService productService;
 
-    @RequestMapping("/")
-public String showFirstView(){
+
+    @RequestMapping("/reset")
+    public String reset() {
+
+        return "welcomeView";
+    }
+
+
+    @RequestMapping("/welcome")
+    public String showFirstView() {
+        productService.createNewList();
         return "welcomeView";
     }
 
     @RequestMapping("/allOrderView")
-    public String showAllOrdersView(Model model){
-List<Order>allOrders=orderService.getAllOrders();
-model.addAttribute("AllOrders",allOrders);
+    public String showAllOrdersView(Model model) {
+        List<Order> orderList = orderService.getAllOrders();
+        model.addAttribute("orderList", orderList);
         return "allOrderView";
     }
 
-    @RequestMapping("/orderByIdView")
-    public String showOrderByIdView(){
+    //?????
+   /* @RequestMapping("/orderByIdView")
+    public String showOrderByIdView(Model model) throws OrderNotFound {
+        model.addAttribute("order",new Order());
+        return "orderByIdView";
+    }*/
 
-
+    @RequestMapping("/addIdView")
+    public String makeNewId() {
         return "orderByIdView";
     }
 
-    @RequestMapping("/addOrderView")
-    public String showAddOrderView(Model model){
-model.addAttribute("order",new Order());
-        return "addOrderView";
+    @RequestMapping("/orderById")
+    public String showGotOrderByIdView(@ModelAttribute("order") Order order, Model model) throws OrderNotFound {
+        int id = order.getId();
+        order = orderService.getOrderById(id);
+        model.addAttribute(order);
+        return "receivedByIdView";
     }
 
-    @RequestMapping("/addedOrderView")
-    public String showAddedOrderView(@ModelAttribute("order")Order order){
-        orderService.addOrder(order);
+
+   /* @RequestMapping("/addOrder")
+    public String makeNewOrder(Model model) {
+        Order order = new Order();
+        model.addAttribute("order", order);
         return "addedOrderView";
+    }*/
+
+    //@ModelAttribute("order")
+    //@ModelAttribute("order")Order order
+    @RequestMapping("/saveOrder")
+    public String saveOrder(Model model) {
+        Order order = new Order();
+        model.addAttribute("order", order);
+        order.setId(orderService.incrementOrderId(order));
+        order.setDate(LocalDate.now());
+        order.setCost(productService.getTotalCost());
+        orderService.addOrder(order);
+
+        return "congratulation";
     }
+
+
+//to product controller
+    @RequestMapping("/addProduct")
+    public String makeNewProduct(Model model) {
+        Product product = new Product();
+        model.addAttribute("product", product);
+        return "addProductView";
+    }
+
+    @RequestMapping("/saveProduct")
+    public String saveProduct(@ModelAttribute("product") Product product) {
+        productService.addProduct(product);
+        return "redirect:addProduct";
+    }
+
 
 
    /* @RequestMapping(value="/getAll",method = RequestMethod.GET)

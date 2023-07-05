@@ -1,6 +1,7 @@
 package com.spring.web.servlet.homework.service;
 
 import com.spring.web.servlet.homework.entity.Order;
+import com.spring.web.servlet.homework.entity.Product;
 import com.spring.web.servlet.homework.exception_handling.OrderNotFound;
 import com.spring.web.servlet.homework.repository.OrderRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,17 @@ import java.util.List;
 public class OrderService {
     @Autowired
     OrderRepositoryImpl orderRepository;
+
+   @Transactional
+   public int incrementOrderId(Order order){
+return orderRepository.incrementID(order);
+   }
+
+  /* @Transactional
+   public double getTotalCost(){
+       return orderRepository.getTotalCost();
+   }*/
+
 
     @Transactional
     public Order getOrderById(int id) throws OrderNotFound {
@@ -38,4 +50,9 @@ public class OrderService {
     public void addOrder(Order order) {
         orderRepository.add(order);
     }
+
+   /* @Transactional
+    public void addProductService(Product product){
+        orderRepository.addProduct(product);
+    }*/
 }

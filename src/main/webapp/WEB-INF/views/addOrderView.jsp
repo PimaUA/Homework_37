@@ -6,7 +6,7 @@
 
 <h2>Enter order details</h2>
 
-<form:form action="addedOrderView" modelAttribute="order">
+<form:form action="saveOrder" modelAttribute="order">
 
 Id <form:input path="id"/>
 <br><br>
@@ -15,7 +15,8 @@ Date <form:input path="date"/>
 Cost <form:input path="cost"/>
 <br><br>
 
-<input type="submit" value="OK"/>
+<input type="submit" value="Save"/>
+<input type="submit" formaction="welcome" value="Finish"/>
 
 </form:form>
 

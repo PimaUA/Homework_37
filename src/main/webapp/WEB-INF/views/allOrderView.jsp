@@ -1,20 +1,20 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
 <body>
 
 <h2>All orders list</h2>
-<br>
 
 <table>
 <tr>
-    <th>id</th>
-    <th>date</th>
-    <th>cost</th>
+    <th>id</th><br>
+    <th>date</th><br>
+    <th>cost</th><br>
 </tr>
 
-<c:forEach var="tempOrder" items="${allOrders}">
+<c:forEach var="tempOrder" items="${orderList}">
+
 <tr>
     <td>${tempOrder.id}</td>
     <td>${tempOrder.date}</td>
@@ -23,6 +23,12 @@
 </c:forEach>
 
 </table>
+
+<br>
+
+<input type="button" value="Return"
+onClick="window.location.href='welcome'"/>
+
 
 </body>
 </html>

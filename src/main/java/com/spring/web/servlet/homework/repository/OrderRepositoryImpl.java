@@ -5,23 +5,35 @@ import com.spring.web.servlet.homework.entity.Product;
 import com.spring.web.servlet.homework.exception_handling.OrderNotFound;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class OrderRepositoryImpl implements OrderRepository{
+    //@Autowired
+    //private List<Product> listOfProducts=new ArrayList<>();
     private static final Logger LOGGER = LogManager.getLogger();
-    private List<Product> listOfProducts;
     private final ArrayList<Order> ordersList = new ArrayList<>();
+    private final AtomicInteger idIncrementer=new AtomicInteger(1);
 
+    public int incrementID(Order order){
+        int id=order.getId();
+        id=idIncrementer.getAndIncrement();
+        return id;
+    }
 
-
-
-
-
-
+/*public double getTotalCost(){
+        double sumCost=0;
+for(Product each:listOfProducts){
+    double eachCost=each.getCost();
+    sumCost+=eachCost;
+}
+return sumCost;
+}*/
 
     @Override
     public Order getById(int id) throws OrderNotFound {
@@ -44,4 +56,9 @@ public class OrderRepositoryImpl implements OrderRepository{
         LOGGER.info(order + " have been added");
         ordersList.add(order);
     }
+
+    /*public void addProduct(Product product){
+        LOGGER.info(product + " have been added");
+        listOfProducts.add(product);
+    }*/
 }

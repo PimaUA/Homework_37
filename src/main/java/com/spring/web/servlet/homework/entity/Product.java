@@ -1,14 +1,12 @@
 package com.spring.web.servlet.homework.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-import java.util.List;
+import lombok.*;
 
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
     private int id;
     private String name;

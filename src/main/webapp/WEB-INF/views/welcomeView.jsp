@@ -3,13 +3,17 @@
 
 <body>
 
-<h2>Welcome on board</h2>
+<h2>WELCOME</h2>
 
-<form action="addOrderView" method="get">
+<form action="addProduct" method="get">
 
-<input type="submit" value="Add order"/>
-<input type="submit" formaction="orderByIdView" value="Get By ID"/>
+<input type="submit" value="Add products to your order"/>
+
+<input type="submit" formaction="addIdView" value="Get By ID"/>
+
 <input type="submit" formaction="allOrderView" value="Get all orders"/>
+
+<input type="submit" formaction="reset" value="Reset"/>
 
 </form>
 
