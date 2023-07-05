@@ -14,7 +14,14 @@ import java.util.List;
 public class OrderRepositoryImpl implements OrderRepository{
     private static final Logger LOGGER = LogManager.getLogger();
     private List<Product> listOfProducts;
-    private static final ArrayList<Order> ordersList = new ArrayList<>();
+    private final ArrayList<Order> ordersList = new ArrayList<>();
+
+
+
+
+
+
+
 
     @Override
     public Order getById(int id) throws OrderNotFound {

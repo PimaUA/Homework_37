@@ -17,5 +17,9 @@ public class Order {
     private LocalDate date;
     //@Getter
     private double cost;
-    private List<Product> listOfProducts;
+    //private List<Product> listOfProducts;
+
+
+
+
 }

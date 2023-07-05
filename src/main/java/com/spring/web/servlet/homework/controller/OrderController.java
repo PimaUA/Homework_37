@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -18,11 +19,42 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
+    @RequestMapping("/")
+public String showFirstView(){
+        return "welcomeView";
+    }
 
-    @RequestMapping(value="/getAll",method = RequestMethod.GET)
+    @RequestMapping("/allOrderView")
+    public String showAllOrdersView(Model model){
+List<Order>allOrders=orderService.getAllOrders();
+model.addAttribute("AllOrders",allOrders);
+        return "allOrderView";
+    }
+
+    @RequestMapping("/orderByIdView")
+    public String showOrderByIdView(){
+
+
+        return "orderByIdView";
+    }
+
+    @RequestMapping("/addOrderView")
+    public String showAddOrderView(Model model){
+model.addAttribute("order",new Order());
+        return "addOrderView";
+    }
+
+    @RequestMapping("/addedOrderView")
+    public String showAddedOrderView(@ModelAttribute("order")Order order){
+        orderService.addOrder(order);
+        return "addedOrderView";
+    }
+
+
+   /* @RequestMapping(value="/getAll",method = RequestMethod.GET)
 public String showOrders(){
         return "myView";
-    }
+    }*/
 
 
 
