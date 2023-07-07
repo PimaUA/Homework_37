@@ -6,14 +6,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.DispatcherServlet;
+
+import java.io.PrintWriter;
 
 @Controller
+@ResponseBody
 public class PingController {
 
-    @RequestMapping("/ping")
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    public void getPing(HttpServletResponse response) {
-        response.addHeader("my header","OK");
+    @GetMapping("/ping")
+    //@ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> getPing() {
+        //response.addHeader("my header","OK");
+        return ResponseEntity.ok("OK");
     }
 }
