@@ -5,7 +5,7 @@
 <h2>Enter Id</h2>
 <br>
 
-<form action="orderById" modelAttribute="order">
+<form action="getOrderById" modelAttribute="order">
 
 <input type="number" name="id" min="1"/>
 

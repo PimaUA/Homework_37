@@ -1,8 +1,8 @@
 package com.spring.web.servlet.homework.exception_handling;
 
-public class OrderNotFound extends Exception{
+public class OrderNotFoundException extends RuntimeException {
 
-    public OrderNotFound() {
+    public OrderNotFoundException() {
         super("The specified order does not exist");
     }
 }

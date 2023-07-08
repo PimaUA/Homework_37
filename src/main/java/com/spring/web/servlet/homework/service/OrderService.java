@@ -1,8 +1,8 @@
 package com.spring.web.servlet.homework.service;
 
 import com.spring.web.servlet.homework.entity.Order;
-import com.spring.web.servlet.homework.entity.Product;
-import com.spring.web.servlet.homework.exception_handling.OrderNotFound;
+import com.spring.web.servlet.homework.exception_handling.OrderListNotFoundException;
+import com.spring.web.servlet.homework.exception_handling.OrderNotFoundException;
 import com.spring.web.servlet.homework.repository.OrderRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -17,32 +17,21 @@ public class OrderService {
     @Autowired
     OrderRepositoryImpl orderRepository;
 
-   @Transactional
-   public int incrementOrderId(Order order){
-return orderRepository.incrementID(order);
-   }
-
-  /* @Transactional
-   public double getTotalCost(){
-       return orderRepository.getTotalCost();
-   }*/
-
-
     @Transactional
-    public Order getOrderById(int id) throws OrderNotFound {
+    public Order getOrderById(int id) {
         Order order = orderRepository.getById(id);
         if (order == null) {
-            throw new RuntimeException();//change exception
+            throw new OrderNotFoundException();
         }
         return order;
     }
 
     @Transactional
     public List<Order> getAllOrders() {
-        List<Order> allOrders = orderRepository.getAll();
+         List<Order> allOrders = orderRepository.getAll();
         if (allOrders == null) {
-            throw new RuntimeException();//change exception
-        }
+        throw new OrderListNotFoundException();
+    }
         return allOrders;
     }
 
@@ -51,8 +40,8 @@ return orderRepository.incrementID(order);
         orderRepository.add(order);
     }
 
-   /* @Transactional
-    public void addProductService(Product product){
-        orderRepository.addProduct(product);
-    }*/
+    @Transactional
+    public int incrementOrderId() {
+        return orderRepository.makeIdIncrement();
+    }
 }
